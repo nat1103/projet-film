@@ -11,6 +11,7 @@ import { FilmNewComponent } from './film-new/film-new.component';
 import { FilmModifComponent } from './film-modif/film-modif.component';
 import { HomeComponent } from './home/home.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { HomeComponent } from './home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     FilmService
