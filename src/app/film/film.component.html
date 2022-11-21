@@ -1,0 +1,15 @@
+<li [ngClass]="{ 'list-group-item' : true,
+                'list-group-item-info': filmOnAir == true,
+                'list-group-item-warning': filmOnAir == false }">
+
+    <h3 [ngStyle]="{color : changeColor()}">Film {{filmName}} -- Visibilité : {{ getOnAir() }}</h3>
+    <div class="onAir" *ngIf="filmOnAir == true">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Blu-ray_Disc.svg/1200px-Blu-ray_Disc.svg.png">
+    </div>
+    <div class="onAir" *ngIf="filmOnAir == false">
+        <img src="https://fr.web.img4.acsta.net/r_654_368/newsv7/21/03/17/09/28/0639652.jpg">
+    </div>
+    <img class="affiche" [src]="filmAffiche">
+    <button class="btn btn-outline-success" (click)="onWatchFilm()">Regarder Film</button>
+    <button class="btn btn-outline-info" (click)="onSwitch()">Switch</button>
+</li>
