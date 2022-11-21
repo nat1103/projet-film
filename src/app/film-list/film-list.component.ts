@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { FilmService } from '../services/film/film.service';
 
 @Component({
   selector: 'app-film-list',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilmListComponent implements OnInit {
 
-  constructor() { }
+  films!: any;
+  constructor(
+    private Film: FilmService
+  ) {}
 
   ngOnInit(): void {
+  	this.films = this.Film.films;
   }
-
+  
+  onAirAll() {
+  	this.Film.setOnAir();
+  }
+  
+  onBRAll() {
+  	this.Film.setNoOnAir();
+  }
 }
+
