@@ -9,6 +9,7 @@ import { FilmService } from '../services/film/film.service';
 })
 export class FilmComponent implements OnInit {
 
+  @Input() id!: number;
   @Input() filmName:string = '';
   @Input() filmOnAir:boolean = false;
   @Input() filmAffiche:string = '';
@@ -36,4 +37,6 @@ export class FilmComponent implements OnInit {
   onSwitch() {
     this.Film.switchOnAir(this.index);
   }
+
+
 }

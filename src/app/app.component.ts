@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { FilmService } from './services/film/film.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,23 +7,24 @@ import { FilmService } from './services/film/film.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Film';
-  films: any = [] ;
   
-  constructor(
-    private Film: FilmService
-  ) { }
+  time:number = 1;
+  
+  constructor() { }
 
   ngOnInit(){
-    this.films = this.Film.films;
-  }
-
-  onAirAll(){
-    this.Film.setOnAir();
-  }
-
-  noOnAirAll(){
-    this.Film.setNoOnAir();
+    const counter = interval(1000);
+    counter.subscribe(
+      (value) => {
+        this.time = value;
+      },
+      (error) => {
+        console.log('Uh-oh, an error occurred! : ' + error);
+      },
+      () => {
+        console.log('Observable complete!');
+      }
+    );
   }
 
 }

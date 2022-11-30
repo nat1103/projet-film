@@ -2,8 +2,9 @@
   <app-film *ngFor="let film of films; let i = index" 
   [filmName]="film.title" 
   [filmOnAir]="film.onAir"
-  [filmAffiche]="film.pictureLink"
-  [index]="i"></app-film>
+  [filmAffiche]="film.filmAffiche"
+  [index]="i"
+  [id]="film.id"></app-film>
 </ul>
 
 <button class="btn btn-outline-success" (click)="onAirAll()">
