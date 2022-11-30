@@ -1,6 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FilmService } from '../services/film/film.service';
-
 
 @Component({
   selector: 'app-film',
@@ -8,12 +7,18 @@ import { FilmService } from '../services/film/film.service';
   styleUrls: ['./film.component.scss']
 })
 export class FilmComponent implements OnInit {
-
-  @Input() id!: number;
-  @Input() filmName:string = '';
-  @Input() filmOnAir:boolean = false;
-  @Input() filmAffiche:string = '';
-  @Input() index:number = 0;
+  @Input() filmName?: string;
+  @Input() filmOnAir?: boolean;
+  @Input() filmAffiche?: string;
+  @Input() filmCountry?: string;
+  @Input() filmMusic?: string;
+  @Input() filmProductor?: string;
+  @Input() filmRealisator?: string;
+  @Input() filmReleaseDate?: string;
+  @Input() filmScenario?: string;
+  @Input() filmSynopsis?: string;
+  @Input() filmTime?: string;
+  @Input() id?: string ;
 
   constructor(
     private Film: FilmService
@@ -22,21 +27,24 @@ export class FilmComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getOnAir(): boolean { 
+  getOnAir() {
     return this.filmOnAir;
   }
 
-  onWatchFilm(): void {
-    console.log('Lecture du film démarrée');
+  onWatchFilm() {
+    console.log('Je regarde le Film');
   }
 
-  changeColor(): string{
+  changeColor() {
     return this.filmOnAir ? 'purple' : 'red';
   }
-  
+
   onSwitch() {
-    this.Film.switchOnAir(this.index);
+    // this.Film.switchOnAir(this.index);
   }
 
+  suppr():void {
+    this.Film.delete(this.id);
+  }
 
 }

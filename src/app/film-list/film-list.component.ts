@@ -7,22 +7,14 @@ import { FilmService } from '../services/film/film.service';
   styleUrls: ['./film-list.component.scss']
 })
 export class FilmListComponent implements OnInit {
-
-  films!: any;
+  films!:any;
   constructor(
     private Film: FilmService
   ) {}
 
   ngOnInit(): void {
-  	this.films = this.Film.films;
-  }
-  
-  onAirAll() {
-  	this.Film.setOnAir();
-  }
-  
-  onBRAll() {
-  	this.Film.setNoOnAir();
+    this.Film.getAllFilms().subscribe((data: any) => {
+      this.films = data;
+    });
   }
 }
-

@@ -10,6 +10,10 @@ import { FilmListComponent } from './film-list/film-list.component';
 import { FilmNewComponent } from './film-new/film-new.component';
 import { FilmModifComponent } from './film-modif/film-modif.component';
 import { HomeComponent } from './home/home.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 
 
 @NgModule({
@@ -25,6 +29,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [
     FilmService

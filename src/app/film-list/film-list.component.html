@@ -2,15 +2,14 @@
   <app-film *ngFor="let film of films; let i = index" 
   [filmName]="film.title" 
   [filmOnAir]="film.onAir"
-  [filmAffiche]="film.filmAffiche"
-  [index]="i"
+  [filmAffiche]="film.pictureLink"
+  [filmCountry]="film.country"
+  [filmProductor]="film.productor"
+  [filmRealisator]="film.realisator"
+  [filmReleaseDate]="film.releaseDate"
+  [filmScenario]="film.scenario"
+  [filmSynopsis]="film.synopsis"
+  [filmTime]="film.time"
+  [filmMusic]="film.music"
   [id]="film.id"></app-film>
 </ul>
-
-<button class="btn btn-outline-success" (click)="onAirAll()">
-    Mettre en salle
-</button>
-
-<button class="btn btn-outline-danger" (click)="onBRAll()">
-    Mettre en BR
-</button>

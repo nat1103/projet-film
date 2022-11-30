@@ -1,59 +1,56 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Films } from 'src/app/models/films.mode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilmService {
-  films = [
-    {
-      id : 1,
-      title: 'Star Wars',
-      onAir: false,
-      //link of the image star wars
-      filmAffiche: 'https://m.media-amazon.com/images/I/71c-O3GaxLL._AC_SY606_.jpg'
-    },
-    {
-      id : 2,
-      title: 'Star Trek',
-      onAir: true,
-      filmAffiche: 'https://fr.web.img6.acsta.net/medias/nmedia/18/62/88/99/19081675.jpg'
-    },
-    {
-      id : 3,
-      title: 'Star Gate',
-      onAir: false,
-      filmAffiche: 'https://fr.web.img6.acsta.net/medias/nmedia/18/36/11/06/19853864.jpg'
-    },
-  ];
+  private dbPath = '/films';
+  filmsRef: AngularFirestoreCollection<Films>;
 
-  setOnAir() {
-    for (const film of this.films) {
-      film.onAir = true;
-    }
+  constructor(
+    private db: AngularFirestore
+  ) {
+    this.filmsRef = db.collection(this.dbPath);
   }
 
-  setNoOnAir() {
-    for (const film of this.films) {
-      film.onAir = false;
-    }
+  getAllFilms(): any {
+    return this.filmsRef.snapshotChanges().pipe(
+      map((changes: any) => {
+        return changes.map((doc: any) => {
+          return ({ id: doc.payload.doc.id, ...doc.payload.doc.data() })
+        })
+      })
+    );
   }
 
-  switchOnAir(index:number){
-    this.films[index].onAir = !this.films[index].onAir;
+  saveNewFilm(film: Films): any {
+    return new Observable(obs => {
+      this.filmsRef.add({ ...film }).then(() => {
+        obs.next();
+      })
+    })
   }
 
-  getFilmById(id: number) {
-    let tmp;
-    for (const film of this.films) {
-      if (film.id == id) {
-        tmp = film;
-        
-      }
-    }
-
-    return tmp;
+  get(id: any): any {
+    return new Observable(obs => {
+      this.filmsRef.doc(id).get().subscribe(res => {
+        obs.next({ id: res.id, ...res.data() });
+      });
+    });
   }
-  
-  constructor() { }
 
+  update(film: Films) {
+    return new Observable(obs => {
+      this.filmsRef.doc(film.id).update(film);
+      obs.next();
+    });
+  }
+
+  delete(id: any) {
+    this.filmsRef.doc(id).delete();
+  }
 }
